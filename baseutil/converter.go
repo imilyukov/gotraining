@@ -1,5 +1,16 @@
 package baseutil
 
+const ALPHABET_SHIFT  = 87
+const NUMERICAL_SHIFT = 48
+
+func charIndex(b byte) byte {
+	if b > 9 {
+		return b + ALPHABET_SHIFT
+	}
+
+	return b + NUMERICAL_SHIFT
+}
+
 func Convert(base byte, number10 int64) string {
 	var result []byte
 	for number10 > 0 {
@@ -18,15 +29,4 @@ func Convert(base byte, number10 int64) string {
 	}
 
 	return string(result)
-}
-
-func charIndex(b byte) byte {
-	var shift byte
-	if b > 9 {
-		shift = 87
-	} else {
-		shift = 48
-	}
-
-	return shift + b
 }

@@ -9,9 +9,14 @@ import (
 
 func main()  {
 	var (
-		base byte
+		base int8
 		number10 int64
 	)
+
+	if len(os.Args) < 3 {
+		fmt.Println("Entered too few arguments. Minimum count of arguments is 2")
+		os.Exit(1)
+	}
 
 	_, err1 := fmt.Sscanf(os.Args[1], "%d", &base)
 	_, err2 := fmt.Sscanf(os.Args[2], "%d", &number10)
@@ -30,5 +35,7 @@ func main()  {
 		os.Exit(1)
 	}
 
-	fmt.Print(baseutil.Convert(base, number10))
+	var baseNumb baseutil.BasedNumb = baseutil.Numb10(number10).BaseOf(base)
+
+	fmt.Printf("%s(%d)\n", baseNumb.Numb, baseNumb.Base)
 }

@@ -1,25 +1,29 @@
 package baseutil
 
-const ALPHABET_SHIFT  = 87
-const NUMERICAL_SHIFT = 48
+const (
+	ALP_SHIFT byte = 87
+	NUM_SHIFT byte = 48
+)
 
-func charIndex(b byte) byte {
-	if b > 9 {
-		return b + ALPHABET_SHIFT
+type (
+	ANSI byte
+	Numb10 int64
+	BasedNumb struct {
+		Base int8
+		Numb string
 	}
+)
 
-	return b + NUMERICAL_SHIFT
-}
-
-func Convert(base byte, number10 int64) string {
+func (numb10 Numb10) BaseOf(base int8) BasedNumb {
 	var result []byte
-	for number10 > 0 {
-		var rank byte = byte(number10 % int64(base))
-		result = append(result, charIndex(rank))
+	var number int64 = int64(numb10)
+	for number > 0 {
+		var rank byte = byte(number % int64(base))
+		result = append(result, ANSI(rank).IndexOf())
 
-		number10 = number10 / int64(base)
-		if number10 < int64(base) {
-			result = append(result, charIndex(byte(number10)))
+		number = number / int64(base)
+		if number < int64(base) {
+			result = append(result, ANSI(byte(number)).IndexOf())
 			break
 		}
 	}
@@ -28,5 +32,16 @@ func Convert(base byte, number10 int64) string {
 		result[i], result[j] = result[j], result[i]
 	}
 
-	return string(result)
+	return BasedNumb{
+		Base: base,
+		Numb: string(result),
+	}
+}
+
+func (b ANSI) IndexOf() byte {
+	if b > 9 {
+		return byte(b) + ALP_SHIFT
+	}
+
+	return byte(b) + NUM_SHIFT
 }

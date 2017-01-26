@@ -7,7 +7,7 @@ import (
 
 func TestNumb10_BaseOf(t *testing.T) {
 	cases := []struct {
-		base int8
+		base byte
 		number10 int64
 		result BasedNumb
 	}{

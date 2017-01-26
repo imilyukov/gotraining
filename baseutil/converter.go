@@ -9,12 +9,12 @@ type (
 	ANSI byte
 	Numb10 int64
 	BasedNumb struct {
-		Base int8
+		Base byte
 		Numb string
 	}
 )
 
-func (numb10 Numb10) BaseOf(base int8) BasedNumb {
+func (numb10 Numb10) BaseOf(base byte) BasedNumb {
 	var result []byte
 	var number int64 = int64(numb10)
 	for number > 0 {

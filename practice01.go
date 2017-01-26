@@ -9,7 +9,7 @@ import (
 
 func main()  {
 	var (
-		base int8
+		base byte
 		number10 int64
 	)
 

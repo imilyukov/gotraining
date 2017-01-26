@@ -10,7 +10,7 @@ import (
 
 func main()  {
 	var (
-		base int8
+		base byte
 		number10 int64
 		cpl int
 	)
@@ -43,13 +43,13 @@ func main()  {
 		os.Exit(1)
 	}
 
-	ch := make(chan baseutil.BasedNumb, base - 1)
+	ch := make(chan baseutil.BasedNumb, int(base) - 1)
 	wg := sync.WaitGroup{}
 
 	for i := base; i > 1; i-- {
 		wg.Add(1)
 
-		go func (base int8, number10 int64) {
+		go func (base byte, number10 int64) {
 			wg.Done()
 
 			ch <- baseutil.Numb10(number10).BaseOf(base)
